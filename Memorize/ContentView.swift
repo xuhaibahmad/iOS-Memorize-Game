@@ -1,16 +1,30 @@
-//
-//  ContentView.swift
-//  Memorize
-//
-//  Created by Zuhaib on 25/07/2020.
-//  Copyright © 2020 Zuhaib. All rights reserved.
-//
-
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, World!")
+        HStack {
+            ForEach(0..<4) { index in
+                CardView()
+            }
+        }
+        .foregroundColor(Color.orange)
+        .padding()
+    }
+}
+
+struct CardView: View {
+    var faceUp: Bool = false
+
+    var body: some View {
+        ZStack {
+            if faceUp {
+                RoundedRectangle(cornerRadius: 10.0).fill(Color.white)
+                RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3)
+                Text("👻").font(Font.largeTitle)
+            } else {
+                RoundedRectangle(cornerRadius: 10.0).fill(Color.orange)
+            }
+        }
     }
 }
 
