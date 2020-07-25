@@ -3,7 +3,7 @@ import Foundation
 class EmojiMemoryGame: ObservableObject {
     @Published private var game = EmojiMemoryGame.createGame()
     
-    static func createGame() -> MemoryGame<String> {
+    private static func createGame() -> MemoryGame<String> {
         let emojis = ["👻", "🤖", "👽", "🧛", "🧟‍♀️", "🧞‍♂️", "🐶", "🐱", "🐹"]
         return MemoryGame<String>(cardPairCount: emojis.count) { pairIndex in emojis[pairIndex] }
     }
@@ -14,5 +14,9 @@ class EmojiMemoryGame: ObservableObject {
     
     func chooseCard(card: MemoryGame<String>.Card) {
         game.choose(card: card)
+    }
+    
+    func reset() {
+        game = EmojiMemoryGame.createGame()
     }
 }

@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct GridLayout {
-    var size: CGSize
-    var rowCount: Int = 0
-    var columnCount: Int = 0
+    private(set) var size: CGSize
+    private(set) var rowCount: Int = 0
+    private(set) var columnCount: Int = 0
     
     init(itemCount: Int, nearAspectRatio desiredAspectRatio: Double = 1, in size: CGSize) {
         self.size = size
@@ -57,8 +57,8 @@ struct GridLayout {
 
 
 struct Grid<Item, ItemView>: View where Item: Identifiable, ItemView: View{
-    var items: [Item]
-    var itemView: (Item) -> ItemView
+    private var items: [Item]
+    private var itemView: (Item) -> ItemView
     
     init(_ items: [Item], itemView: @escaping (Item) -> ItemView) {
         self.items = items
@@ -71,13 +71,13 @@ struct Grid<Item, ItemView>: View where Item: Identifiable, ItemView: View{
         }
     }
     
-    func body(for layout: GridLayout) -> some View {
+    private func body(for layout: GridLayout) -> some View {
         ForEach(items) { item in
             self.body(for: item, in: layout)
         }
     }
     
-    func body(for item: Item, in layout: GridLayout) -> some View {
+    private func body(for item: Item, in layout: GridLayout) -> some View {
         let index = self.items.firstIndex{ $0.id == item.id }!
         return self.itemView(item)
             .frame(width: layout.itemSize.width, height: layout.itemSize.height)
